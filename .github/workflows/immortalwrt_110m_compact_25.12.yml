@@ -13,12 +13,10 @@ on:
   repository_dispatch:
   workflow_dispatch:
 
-  #schedule:
-    # UTC 时间对应北京时间（UTC+8=北京时间）：7月20日，早上5点10分 开始编译
-    #- cron: '10 21 19 7 *'  
-    # UTC 时间对应北京时间：每月2、9、16、23日，早上5点10分 开始编译    
-    #- cron: '10 21 1,8,15,22 * *'
-    
+  schedule:
+    # 每天北京时间 05:10（UTC 21:10）自动编译。
+    - cron: '10 21 * * *'
+
 # 允许创建 Release、生成发布说明并上传固件附件。
 permissions:
   contents: write
