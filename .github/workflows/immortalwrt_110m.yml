@@ -19,6 +19,10 @@ on:
     # UTC 时间对应北京时间：每月2、9、16、23日，早上5点10分 开始编译    
     #- cron: '10 21 1,8,15,22 * *'
     
+# 允许创建 Release、生成发布说明并上传固件附件。
+permissions:
+  contents: write
+
 jobs:
   build:
     # 建议 immortalwrt 使用低版本，更容易编译成功
@@ -237,3 +241,23 @@ jobs:
       with:
         name: ax6000_immortalwrt_110m
         path: /builder/openwrt/bin
+
+    # 使用北京时间生成版本日期。
+    - name: Generate build date tag
+      run: |
+        echo "BUILD_DATE=$(TZ=Asia/Shanghai date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+
+    - name: Create Release
+      if: success()
+      uses: softprops/action-gh-release@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        # 加入版本名称和运行编号，避免不同固件同时发布时标签冲突。
+        tag_name: immortalwrt_110m_${{ env.BUILD_DATE }}_${{ github.run_id }}
+        name: RedmiAX6000_immortalwrt_110m_${{ env.BUILD_DATE }}
+        generate_release_notes: true
+        files: |
+          /builder/openwrt/bin/targets/mediatek/filogic/*.bin
+          /builder/openwrt/bin/targets/mediatek/filogic/*.manifest
+          /builder/openwrt/bin/targets/mediatek/filogic/*.json
