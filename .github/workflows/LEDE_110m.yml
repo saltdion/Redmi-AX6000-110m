@@ -190,7 +190,7 @@ jobs:
         tag_name: LEDE_110m_${{ env.BUILD_DATE }}_${{ github.run_id }}
         name: RedmiAX6000_LEDE_110m_${{ env.BUILD_DATE }}
         generate_release_notes: true
+        # 仅发布 AX6000 固件及软件包清单，排除 RAM BL2 和 profiles.json。
         files: |
-          /builder/openwrt/bin/targets/mediatek/filogic/*.bin
-          /builder/openwrt/bin/targets/mediatek/filogic/*.manifest
-          /builder/openwrt/bin/targets/mediatek/filogic/*.json
+          /builder/openwrt/bin/targets/mediatek/filogic/*xiaomi_redmi-router-ax6000*.bin
+          /builder/openwrt/bin/targets/mediatek/filogic/*xiaomi_redmi-router-ax6000*.manifest
