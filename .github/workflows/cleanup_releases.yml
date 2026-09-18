@@ -1,0 +1,50 @@
+name: 清理历史固件 Release
+
+on:
+  schedule:
+    # 每天北京时间 00:00；即使当天编译失败，也会清理过期发布。
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 仅预览，不删除
+        type: boolean
+        default: true
+  workflow_run:
+    workflows:
+      - LEDE_110m
+      - immortalwrt_110m
+      - immortalwrt_237_110m
+      - immortalwrt_237_golang_110m
+      - immortalwrt_110m_compact_24.10
+      - immortalwrt_110m_compact_25.12
+    types: [completed]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cleanup-firmware-releases
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-24.04
+    env:
+      TZ: Asia/Shanghai
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: 按版本清理历史发布
+        env:
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            python3 .github/scripts/cleanup_releases.py
+          else
+            python3 .github/scripts/cleanup_releases.py --apply
+          fi
