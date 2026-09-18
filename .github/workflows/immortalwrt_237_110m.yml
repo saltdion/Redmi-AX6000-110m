@@ -295,7 +295,7 @@ jobs:
         tag_name: immortalwrt_237_110m_${{ env.BUILD_DATE }}_${{ github.run_id }}
         name: RedmiAX6000_immortalwrt_237_110m_${{ env.BUILD_DATE }}
         generate_release_notes: true
-        # 仅发布 AX6000 固件及软件包清单，排除 RAM BL2 和 profiles.json。
+        # 仅发布 AX6000 的 squashfs-sysupgrade.bin 和 initramfs-kernel.bin。
         files: |
-          /builder/openwrt/bin/targets/mediatek/filogic/*xiaomi_redmi-router-ax6000*.bin
-          /builder/openwrt/bin/targets/mediatek/filogic/*xiaomi_redmi-router-ax6000*.manifest
+          /builder/openwrt/bin/targets/mediatek/filogic/*xiaomi_redmi-router-ax6000*-squashfs-sysupgrade.bin
+          /builder/openwrt/bin/targets/mediatek/filogic/*xiaomi_redmi-router-ax6000*-initramfs-kernel.bin
