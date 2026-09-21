@@ -89,18 +89,29 @@ hanwckf 大佬的仓库目前主要支持 OpenWrt `21.02`：
 
 编译适用于 hanwckf 大佬 uboot / ImmortalWrt 110M 大分区的固件。
 
-## 网络驱动说明
+## 六个版本主要差异
 
 以下根据当前 workflow、设备定义和构建配置整理：六个版本中，四个使用开源 mt76 无线驱动，两个使用联发科厂商 mt_wifi 无线驱动方案（社区通常称为“闭源版”）。
 
-| 固件 / workflow 名称 | 源码仓库与分支 | Wi-Fi 驱动方案 |
-| --- | --- | --- |
-| `LEDE_110m` | `coolsnowwolf/lede` · `master` | 开源 mt76，`kmod-mt7915e` |
-| `immortalwrt_110m` | `immortalwrt/immortalwrt` · `openwrt-24.10` | 开源 mt76，`kmod-mt7915e` |
-| `immortalwrt_110m_compact_24.10` | `immortalwrt/immortalwrt` · `openwrt-24.10` | 开源 mt76，`kmod-mt7915e` |
-| `immortalwrt_110m_compact_25.12` | `immortalwrt/immortalwrt` · `openwrt-25.12` | 开源 mt76，`kmod-mt7915e` |
-| `immortalwrt_237_110m` | `padavanonly/immortalwrt-mt798x-6.6` · `openwrt-24.10-6.6` | 厂商 mt_wifi（通常称“闭源版”），配置启用 `kmod-mt_wifi`、`kmod-warp` |
-| `immortalwrt_237_golang_110m` | `padavanonly/immortalwrt-mt798x-6.6` · `openwrt-24.10-6.6` | 厂商 mt_wifi（通常称“闭源版”），配置启用 `kmod-mt_wifi`、`kmod-warp` |
+| 固件 / workflow 名称 | 源码仓库与分支 | Wi-Fi 驱动方案 | 主要选择的 LuCI 应用 | 定位 |
+| --- | --- | --- | --- | --- |
+| `LEDE_110m` | `coolsnowwolf/lede` · `master`（滚动更新） | 开源 mt76，`kmod-mt7915e` | OpenClash、PassWall、SSR Plus+、msd_lite | 插件较多，偏向功能齐全 |
+| `immortalwrt_110m` | `immortalwrt/immortalwrt` · `openwrt-24.10` | 开源 mt76，`kmod-mt7915e` | OpenClash、PassWall、msd_lite、定时重启、ARP 绑定 | 官方源码的常用插件版 |
+| `immortalwrt_110m_compact_24.10` | `immortalwrt/immortalwrt` · `openwrt-24.10` | 开源 mt76，`kmod-mt7915e` | 定时重启、ARP 绑定 | 精简版，代理软件按需安装 |
+| `immortalwrt_110m_compact_25.12` | `immortalwrt/immortalwrt` · `openwrt-25.12` | 开源 mt76，`kmod-mt7915e` | 定时重启、ARP 绑定 | 较新系统分支的精简版 |
+| `immortalwrt_237_110m` | `padavanonly/immortalwrt-mt798x-6.6` · `openwrt-24.10-6.6` | 厂商 mt_wifi（通常称“闭源版”），`kmod-mt_wifi`、`kmod-warp` | OpenClash、PassWall、msd_lite、定时重启，以及上游 MTK 无线管理、网络加速、限速和流量统计组件 | 厂商无线驱动版 |
+| `immortalwrt_237_golang_110m` | 同上，额外升级 Go 工具链 | 同上 | 与普通 `237` 版本相同 | 解决部分插件对新版 Go 的编译要求 |
+
+### 插件、地址和版本说明
+
+- 两个 compact 版本不内置 OpenClash、PassWall、DAE 本体，仅保留 OpenClash 和 DAE 所需的部分底层依赖；固件体积和剩余空间以实际构建及设备运行结果为准。
+- 四个非 compact 版本选择了 OpenClash 插件，但 workflow 没有明确预装 Clash/Mihomo 内核的步骤；PassWall 则配置了 Sing-Box、Xray 和 Geoview。
+- `237` 是沿用的命名，并不表示当前系统为 23.07。Golang 版本主要改变编译工具链，不代表无线驱动不同或网络性能更高。
+- 当前定制配置将 LEDE 和两个 `237` 版本的管理地址设为 `192.168.2.1`，官方 ImmortalWrt 三个版本设为 `192.168.16.1`；保留旧配置升级时地址可能沿用原设置。
+- LEDE 当前选择上游普通 AX6000 目标，workflow 没有像官方 ImmortalWrt 三个版本一样显式添加 110M 设备补丁；不能仅凭文件名认定分区兼容，刷机前需单独核实。
+- 独立仓库 [chasey 25.12 厂商驱动精简版 Fork](https://github.com/saltdion/immortalwrt-mt798x-rebase) 不属于本表六个版本，使用独立的每周五北京时间 01:00 更新检查和按需编译计划。
+
+<a id="网络驱动说明"></a>
 
 ### 适用范围
 
