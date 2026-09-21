@@ -10,6 +10,10 @@ on:
         description: 仅预览，不删除
         type: boolean
         default: true
+      refresh_only:
+        description: 仅更新 README 下载列表，不清理 Release
+        type: boolean
+        default: false
   workflow_run:
     workflows:
       - LEDE_110m
@@ -40,6 +44,7 @@ jobs:
           ref: main
           persist-credentials: false
       - name: 按版本清理历史发布
+        if: inputs.refresh_only != true
         env:
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
         run: |
@@ -48,3 +53,5 @@ jobs:
           else
             python3 .github/scripts/cleanup_releases.py --apply
           fi
+      - name: 更新 README 固件下载列表
+        run: python3 .github/scripts/update_downloads.py --publish
