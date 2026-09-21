@@ -49,7 +49,7 @@ def render(releases):
                 break
             # 只为实际存在且上传完成的附件生成链接，不猜测文件地址。
             links = []
-            for suffix, label in [('squashfs-sysupgrade.bin', 'sysupgrade'), ('initramfs-kernel.bin', 'initramfs')]:
+            for suffix, label in [('squashfs-sysupgrade.bin', 'sysupgrade')]:
                 assets = sorted((a for a in release.get('assets', []) if
                                  a.get('state') == 'uploaded' and 'xiaomi_redmi-router-ax6000' in a['name'] and
                                  a['name'].endswith(suffix)), key=lambda a: a['name'])
