@@ -35,7 +35,7 @@ def read_releases():
 
 
 def render(releases):
-    rows = []
+    latest = {}
     for release in releases:
         if release.get('draft') or not release.get('published_at'):
             continue
@@ -58,8 +58,12 @@ def render(releases):
                     links.append(f'[{label}]({url})')
             release_url = f'https://github.com/{REPO}/releases/tag/{quote(release["tag_name"], safe="")}'
             row = f'| {built:%Y-%m-%d %H:%M:%S} | `{variant}` | {" · ".join(links) or "暂无指定镜像"} | [Release]({release_url}) |'
-            rows.append((built, release['id'], row))
+            # 每个版本仅展示最新的已发布记录，不能依赖 API 返回顺序。
+            candidate = (built, release['id'], row)
+            if variant not in latest or candidate[:2] > latest[variant][:2]:
+                latest[variant] = candidate
             break
+    rows = list(latest.values())
     rows.sort(key=lambda row: (row[0], row[1]), reverse=True)
     lines = ['| 构建时间（北京时间） | 固件版本 | 镜像下载 | 发布详情 |', '| --- | --- | --- | --- |']
     lines.extend(row[2] for row in rows)
