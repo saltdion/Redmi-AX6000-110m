@@ -45,12 +45,12 @@ hanwckf 大佬的仓库目前主要支持 OpenWrt `21.02`：
 
 | 构建时间（北京时间） | 固件版本 | 镜像下载 | 发布详情 |
 | --- | --- | --- | --- |
+| 2026-09-22 09:09:25 | `immortalwrt_110m` | [sysupgrade](https://github.com/saltdion/Redmi-AX6000-110m/releases/download/immortalwrt_110m_20260922-090925_35649604075/immortalwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-110m-squashfs-sysupgrade.bin) | [Release](https://github.com/saltdion/Redmi-AX6000-110m/releases/tag/immortalwrt_110m_20260922-090925_35649604075) |
 | 2026-09-22 08:15:23 | `immortalwrt_237_110m` | [sysupgrade](https://github.com/saltdion/Redmi-AX6000-110m/releases/download/immortalwrt_237_110m_20260922-081523_35650241100/immortalwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-110m-squashfs-sysupgrade.bin) | [Release](https://github.com/saltdion/Redmi-AX6000-110m/releases/tag/immortalwrt_237_110m_20260922-081523_35650241100) |
 | 2026-09-22 08:03:15 | `immortalwrt_237_golang_110m` | [sysupgrade](https://github.com/saltdion/Redmi-AX6000-110m/releases/download/immortalwrt_237_golang_110m_20260922-080315_35649675806/immortalwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-110m-squashfs-sysupgrade.bin) | [Release](https://github.com/saltdion/Redmi-AX6000-110m/releases/tag/immortalwrt_237_golang_110m_20260922-080315_35649675806) |
 | 2026-09-22 07:09:48 | `immortalwrt_110m_compact_25.12` | [sysupgrade](https://github.com/saltdion/Redmi-AX6000-110m/releases/download/20260922-070948/immortalwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-110m-squashfs-sysupgrade.bin) | [Release](https://github.com/saltdion/Redmi-AX6000-110m/releases/tag/20260922-070948) |
 | 2026-09-22 06:47:56 | `immortalwrt_110m_compact_24.10` | [sysupgrade](https://github.com/saltdion/Redmi-AX6000-110m/releases/download/20260922-064756/immortalwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-110m-squashfs-sysupgrade.bin) | [Release](https://github.com/saltdion/Redmi-AX6000-110m/releases/tag/20260922-064756) |
 | 2026-09-22 05:58:00 | `LEDE_110m` | [sysupgrade](https://github.com/saltdion/Redmi-AX6000-110m/releases/download/LEDE_110m_20260922-055800_35649789773/openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-squashfs-sysupgrade.bin) | [Release](https://github.com/saltdion/Redmi-AX6000-110m/releases/tag/LEDE_110m_20260922-055800_35649789773) |
-| 2026-09-21 06:09:03 | `immortalwrt_110m` | [sysupgrade](https://github.com/saltdion/Redmi-AX6000-110m/releases/download/immortalwrt_110m_20260921-060903_35528953012/immortalwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-110m-squashfs-sysupgrade.bin) | [Release](https://github.com/saltdion/Redmi-AX6000-110m/releases/tag/immortalwrt_110m_20260921-060903_35528953012) |
 
 <!-- firmware-downloads:end -->
 
